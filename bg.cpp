@@ -276,7 +276,7 @@ void UpdateBG(void)
 	}	
 
 	//HPの数値などを変えるやーつ
-	if (s_nBgnCount.pos.x >= s_fLength + ROUTELENGTH / MAX_MAXLIFE)
+	if (s_nBgnCount.pos.x >= s_fLength + ROUTELENGTH / Status->nStatus)
 	{
 		
 		s_fLength += ROUTELENGTH / Status->nStatus;
@@ -284,7 +284,7 @@ void UpdateBG(void)
 	}
 
 	//HPがマックス超えたときの処理
-	if (s_nBgnCount.pos.x <= s_fLength - ROUTELENGTH / MAX_MAXLIFE)
+	if (s_nBgnCount.pos.x <= s_fLength - ROUTELENGTH / Status->nStatus)
 	{
 		s_fLength -= ROUTELENGTH / Status->nStatus;
 		s_fHpLine -= 1.0f;

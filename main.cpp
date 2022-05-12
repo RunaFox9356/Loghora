@@ -20,16 +20,8 @@ LPDIRECT3DDEVICE9 g_pD3DDevice = NULL; //Direct3dデバイスへのぽいんた
 MODE g_mode = MODE_TITLE;//モード
 LPD3DXFONT g_pFont = NULL; //フォントのポインタ
 int g_nCountFPS;
-int g_nUseWireFrame;
-int DebugNumber;
-int DebugNumberEnemy;
-float Size = 1.0f;
-D3DXVECTOR3 SetRange;
+PLAYER number;	//CHARACTERのアイコンの呼び出し用
 bool Debug;
-bool bLine;//lineモード
-bool press = false;
-bool EnemyMode = false;//MapいじるかEnemyいじるか
-bool EnemyAlignment = false;//マップのマス目基準にするかしないか
 int Collar;
 
 
@@ -161,7 +153,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	//ポイント構造体
 //	POINT    pt;
-	PLAYER number;
+
 	
 	int nID;//返り値を格納
 	static HWND hWndEditlnput1;		//入力ウィンドウハンドル(識別子)
@@ -308,7 +300,6 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			break;
 	
 		default:
-			press = false;
 			break;
 		}
 		GetIcon(number);
@@ -423,7 +414,6 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)//TRUE：ウインドウ/FAL
 	//乱数の初期化
 	srand((unsigned int)time(0));
 
-	bLine = true;
 
 	InitBG();
 

@@ -9,6 +9,15 @@
 
 #include"main.h"
 
+//アイコンデータ
+
+#define ICONPASSGON		(L"Data/TEXTURE/kitune.png")
+#define ICONPASSRERI	(L"Data/TEXTURE/kitune.png")
+#define ICONPASSHURE	(L"Data/TEXTURE/hure.jpg")
+#define ICONPASSMAYA	(L"Data/TEXTURE/Maya.png")
+#define ICONPASSORI		(L"Data/TEXTURE/ORI.png")
+#define ICONPASSTOTO	(L"Data/TEXTURE/toto.png")
+
 typedef enum
 {
 	PLAYER_GON = 0,

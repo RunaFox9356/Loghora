@@ -19,7 +19,7 @@
 static LPDIRECT3DTEXTURE9 s_pTextureBG[NUM_BG] = {}; //テクスチャのポインタ
 static LPDIRECT3DVERTEXBUFFER9 s_pVtxBuffBG = NULL; //頂点バッファの設定
 
-static LPDIRECT3DTEXTURE9 s_pTextureIcon = NULL; //テクスチャのポインタ
+static LPDIRECT3DTEXTURE9 s_pTextureIcon[PLAYER_MAX] = {}; //テクスチャのポインタ
 static LPDIRECT3DVERTEXBUFFER9 s_pVtxBuffIcon = NULL; //頂点バッファの設定
 
 static LPDIRECT3DVERTEXBUFFER9 s_pVtxBuff = NULL; //頂点バッファの設定
@@ -44,11 +44,37 @@ void InitBG(void)
 	//デバイスの取得
 	pDevice = GetDevice();
 
+	s_nBgnCount.nType = PLAYER_GON;
 
 	//テクスチャの読み込み
 	D3DXCreateTextureFromFile(pDevice,
-		ICONPASS,
-		&s_pTextureIcon);
+		ICONPASSGON,
+		&s_pTextureIcon[PLAYER_GON]);
+
+	//テクスチャの読み込み
+	D3DXCreateTextureFromFile(pDevice,
+		ICONPASSRERI,
+		&s_pTextureIcon[PLAYER_RERI]);
+
+	//テクスチャの読み込み
+	D3DXCreateTextureFromFile(pDevice,
+		ICONPASSHURE,
+		&s_pTextureIcon[PLAYER_FURE]);
+
+	//テクスチャの読み込み
+	D3DXCreateTextureFromFile(pDevice,
+		ICONPASSMAYA,
+		&s_pTextureIcon[PLAYER_MAYA]);
+
+	//テクスチャの読み込み
+	D3DXCreateTextureFromFile(pDevice,
+		ICONPASSORI,
+		&s_pTextureIcon[PLAYER_ORI]);
+
+	//テクスチャの読み込み
+	D3DXCreateTextureFromFile(pDevice,
+		ICONPASSTOTO,
+		&s_pTextureIcon[PLAYER_TOTO]);
 
 	//頂点バッファ
 	pDevice->CreateVertexBuffer(
@@ -58,6 +84,7 @@ void InitBG(void)
 		D3DPOOL_MANAGED,//ここ頂点フォーマット
 		&s_pVtxBuffIcon,
 		NULL);
+
 	VERTEX_2D*pVtx; //頂点へのポインタ
 					//頂点バッファをアンロック
 	s_pVtxBuffIcon->Lock(0, 0, (void**)&pVtx, 0);
@@ -213,11 +240,14 @@ void UninitBG(void)
 		s_pVtxBuff = NULL;
 	}
 
-	//頂点バッファの破棄
-	if (s_pTextureIcon != NULL)
+	for (int nCnt = 0; nCnt < PLAYER_MAX; nCnt++)
 	{
-		s_pTextureIcon->Release();
-		s_pTextureIcon = NULL;
+		//頂点バッファの破棄
+		if (s_pTextureIcon[nCnt] != NULL)
+		{
+			s_pTextureIcon[nCnt]->Release();
+			s_pTextureIcon[nCnt] = NULL;
+		}
 	}
 
 	//頂点バッファの破棄
@@ -335,10 +365,6 @@ void UpdateBG(void)
 			660.0f);
 	}
 
-
-
-
-
 	//頂点バッファをアンロック
 	s_pVtxBuff->Unlock();
 }
@@ -400,7 +426,7 @@ void DrawBG(void)
 	pDevice->SetFVF(FVF_VERTEX_2D);
 
 	//テクスチャの設定
-	pDevice->SetTexture(0, s_pTextureIcon);
+	pDevice->SetTexture(0, s_pTextureIcon[s_nBgnCount.nType]);
 
 	pDevice->DrawPrimitive(
 		D3DPT_TRIANGLESTRIP,
@@ -413,4 +439,7 @@ float GetBg(void)
 	return s_fHpLine;
 }
 
-
+void GetIcon(PLAYER number)
+{
+	s_nBgnCount.nType = number;
+}

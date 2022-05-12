@@ -49,10 +49,10 @@ using namespace concurrency::streams;
 // プロトタイプ宣言
 //=====================================
 // 制御関数
-pplx::task<void> GetTest();//読み込み
+pplx::task<void> GetTest(const wchar_t* cUrl);//読み込み
 std::string UTF8toSjis(std::string srcUTF8);//変換
 Set *GetStatus(void);//ゲット
-void SetStatus(void);
+//void SetStatus(void);
 
 #endif
 

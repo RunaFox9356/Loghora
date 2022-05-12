@@ -42,7 +42,13 @@
 #define NAME		("ゴン")
 #define JOB			("召喚術師")
 #define TRIBE		("狐尾族")
-#define ICONPASS	(L"Data/TEXTURE/kitune.png")
+#define ICONPASSGON		(L"Data/TEXTURE/kitune.png")
+#define ICONPASSRERI	(L"Data/TEXTURE/kitune.png")
+#define ICONPASSHURE	(L"Data/TEXTURE/kitune.png")
+#define ICONPASSMAYA	(L"Data/TEXTURE/Maya.png")
+#define ICONPASSORI		(L"Data/TEXTURE/ORI.png")
+#define ICONPASSTOTO	(L"Data/TEXTURE/toto.png")
+
 #define GUILD		("エンドレスデバッガー")
 
 

@@ -160,7 +160,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hlnstacePrev, LPSTR ipCmdLine,
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	//ポイント構造体
-	POINT    pt;
+//	POINT    pt;
+	PLAYER number;
+	
 	int nID;//返り値を格納
 	static HWND hWndEditlnput1;		//入力ウィンドウハンドル(識別子)
 
@@ -203,6 +205,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
+		
 		{
 		case ID_40001:
 			//バージョン(A)
@@ -225,12 +228,90 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			//
 			Collar = 3;
 			break;
-
+		case ID_40008:
+			//ゴン
+			try
+			{
+				GetTest(L"https://lhrpg.com/lhz/api/196293.json").wait();
+			}
+			catch (const std::exception& e)
+			{
+				printf("Error exception:%s\n", e.what());
+				//assert(false);
+			}
+			number = PLAYER_GON;
+			break;
+		case ID_40009:
+			//アークレリアル
+			try
+			{
+				GetTest(L"https://lhrpg.com/lhz/api/197773.json").wait();
+			}
+			catch (const std::exception& e)
+			{
+				printf("Error exception:%s\n", e.what());
+				//assert(false);
+			}
+			number = PLAYER_RERI;
+			break;
+		case ID_40011:
+			//フレリン
+			try
+			{
+				GetTest(L"https://lhrpg.com/lhz/api/196294.json").wait();
+			}
+			catch (const std::exception& e)
+			{
+				printf("Error exception:%s\n", e.what());
+				//assert(false);
+			}
+			number = PLAYER_FURE;
+			break;
+		case ID_40012:
+			//マヤ
+			try
+			{
+				GetTest(L"https://lhrpg.com/lhz/api/197343.json").wait();
+			}
+			catch (const std::exception& e)
+			{
+				printf("Error exception:%s\n", e.what());
+				//assert(false);
+			}
+			number = PLAYER_MAYA;
+			break;
+		case ID_40013:
+			//オリバー
+			try
+			{
+				GetTest(L"https://lhrpg.com/lhz/api/197969.json").wait();
+			}
+			catch (const std::exception& e)
+			{
+				printf("Error exception:%s\n", e.what());
+				//assert(false);
+			}
+			number = PLAYER_ORI;
+			break;
+		case ID_40015:
+			//トト
+			try
+			{
+				GetTest(L"https://lhrpg.com/lhz/api/198061.json").wait();
+			}
+			catch (const std::exception& e)
+			{
+				printf("Error exception:%s\n", e.what());
+				//assert(false);
+			}
+			number = PLAYER_TOTO;
+			break;
 	
 		default:
 			press = false;
 			break;
 		}
+		GetIcon(number);
 		break;
 	}
 	return DefWindowProc(hWnd, uMsg, wParam, lParam);
@@ -348,7 +429,7 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)//TRUE：ウインドウ/FAL
 
 	try
 	{
-		GetTest().wait();
+		GetTest(L"https://lhrpg.com/lhz/api/196293.json").wait();
 	}
 	catch (const std::exception& e)
 	{
@@ -356,19 +437,6 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)//TRUE：ウインドウ/FAL
 		//assert(false);
 	}
 
-	//int ret;
-	//// URL
-	//std::string sUrl = "http://localhost/hoge.pdf";	// ダウンロードしたいファイルのURLを指定
-
-	//// ダウンロード先
-	//std::string sLocalFilePath = "C:/hoge.pdf";	// ダウンロード先となるローカルのファイルパスをフルパスで指定
-
-	//											// REST API実行
-	//HttpClient cHttpClient;
-	//ret = cHttpClient.download(sUrl, sLocalFilePath);
-	//if (ret == 0) {
-	//	::printf("downloaded \n");
-	//}
 
 	return S_OK;
 }

@@ -53,17 +53,19 @@ using namespace concurrency::streams;       // 非同期ストリーム
 //	});
 //}
 
+//static const wchar_t* hoge = L"https://lhrpg.com/lhz/api/196293.json";
+
 //============================
 // 読み込みます
 //============================
-pplx::task<void> GetTest()
+pplx::task<void> GetTest(const wchar_t* cUrl)
 {
 	//std::ifstream ifs(pathToJSON);
 
-	return pplx::create_task([]
+	return pplx::create_task([&cUrl]
 	{
 		// クライアントの設定
-		http_client client(L"https://lhrpg.com/lhz/api/196293.json");
+		http_client client(cUrl);
 
 		// リクエスト送信
 		return client.request(methods::GET);

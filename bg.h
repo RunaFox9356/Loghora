@@ -9,14 +9,26 @@
 
 #include"main.h"
 
+typedef enum
+{
+	PLAYER_GON = 0,
+	PLAYER_RERI,
+	PLAYER_FURE,
+	PLAYER_MAYA,
+	PLAYER_ORI,
+	PLAYER_TOTO,
+	PLAYER_MAX,
+}PLAYER;
+
 //構造体
 typedef struct
 {
 	D3DXVECTOR3 pos;	//位置
 	D3DXVECTOR3 move;	//移動量
 	D3DXCOLOR col; //カラー
-	int nType;//テクスチャ
+	PLAYER nType;//テクスチャ
 }Bg;
+
 
 
 //プロトタイプ宣言
@@ -26,5 +38,6 @@ void UpdateBG(void);
 void DrawBG(void);
 float GetBg(void);
 int *GetCollar(void);
+void GetIcon(PLAYER number);
 
 #endif // !_BG_H_

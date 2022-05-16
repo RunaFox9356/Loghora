@@ -32,6 +32,7 @@ static Bg s_nBgnCount;
 static float txeX,txeY;
 static float s_fHpLine, s_fLength;
 static int s_nCollar;
+static int s_nNowLife;
 
 
 //================
@@ -45,7 +46,7 @@ void InitBG(void)
 	pDevice = GetDevice();
 
 	s_nBgnCount.nType = PLAYER_GON;
-
+	s_nBgnCount.pos = D3DXVECTOR3(MINPOS, 0.0f, 0.0f);
 	//テクスチャの読み込み
 	D3DXCreateTextureFromFile(pDevice,
 		ICONPASSGON,
@@ -268,41 +269,54 @@ void UpdateBG(void)
 	s_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 	//テクスチャの座標設定
 
-	if (GetMousePress(MOUSE_INPUT_LEFT))			//マウスのプレス処理			//マウスのプレス処理
-	{
-		D3DXVECTOR3 Mouse = GetMouse();					//マウスの画面内の位置
+	//if (GetMousePress(MOUSE_INPUT_LEFT))			//マウスのプレス処理			//マウスのプレス処理
+	//{
+	//	D3DXVECTOR3 Mouse = GetMouse();					//マウスの画面内の位置
 
-		s_nBgnCount.move.x = Mouse.x - s_nBgnCount.pos.x ;
-	}	
+	//	s_nBgnCount.move.x = Mouse.x - s_nBgnCount.pos.x ;
+	//}	
 
-	//HPの数値などを変えるやーつ
-	if (s_nBgnCount.pos.x >= s_fLength + ROUTELENGTH / Status->nStatus)
+	////HPの数値などを変えるやーつ
+	//if (s_nBgnCount.pos.x >= s_fLength + ROUTELENGTH / Status->nStatus)
+	//{
+	//	
+	//	s_fLength += ROUTELENGTH / Status->nStatus;
+	//	s_fHpLine += 1.0f;
+	//}
+
+	////HPがマックス超えたときの処理
+	//if (s_nBgnCount.pos.x <= s_fLength - ROUTELENGTH / Status->nStatus)
+	//{
+	//	s_fLength -= ROUTELENGTH / Status->nStatus;
+	//	s_fHpLine -= 1.0f;
+	//}
+
+	//int wheel = GetMouseWheel();
+	//if (s_fHpLine < s_nNowLife)
+	//{
+	//	s_nBgnCount.pos.x += ROUTELENGTH / Status->nStatus;
+	//	s_fLength += ROUTELENGTH / Status->nStatus;
+	//	s_fHpLine += 1.0f;
+
+	//}
+	//else if (s_fHpLine > s_nNowLife)
+	//{
+	//	s_nBgnCount.pos.x -= ROUTELENGTH / Status->nStatus;
+	//	s_fLength -= ROUTELENGTH / Status->nStatus;
+	//	s_fHpLine -= 1.0f;
+	//}
+	if (s_fHpLine < s_nNowLife)
 	{
-		
-		s_fLength += ROUTELENGTH / Status->nStatus;
-		s_fHpLine += 1.0f;
+		s_nBgnCount.pos.x += ROUTELENGTH / Status->nStatus *(s_nNowLife-s_fHpLine);
+		s_fLength += ROUTELENGTH / Status->nStatus*(s_nNowLife - s_fHpLine);
+		s_fHpLine = s_nNowLife;
+
 	}
-
-	//HPがマックス超えたときの処理
-	if (s_nBgnCount.pos.x <= s_fLength - ROUTELENGTH / Status->nStatus)
+	else if (s_fHpLine > s_nNowLife)
 	{
-		s_fLength -= ROUTELENGTH / Status->nStatus;
-		s_fHpLine -= 1.0f;
-	}
-
-	int wheel = GetMouseWheel();
-	if (wheel > 0)
-	{
-		s_nBgnCount.pos.x += ROUTELENGTH / Status->nStatus;
-		s_fLength += ROUTELENGTH / Status->nStatus;
-		s_fHpLine += 1.0f;
-
-	}
-	else if (wheel < 0)
-	{
-		s_nBgnCount.pos.x -= ROUTELENGTH / Status->nStatus;
-		s_fLength -= ROUTELENGTH / Status->nStatus;
-		s_fHpLine -= 1.0f;
+		s_nBgnCount.pos.x -= ROUTELENGTH / Status->nStatus*(s_fHpLine -s_nNowLife);
+		s_fLength -= ROUTELENGTH / Status->nStatus*(s_fHpLine -s_nNowLife);
+		s_fHpLine = s_nNowLife;
 	}
 
 	if (s_fHpLine <= Status->nStatus / 8)
@@ -341,14 +355,14 @@ void UpdateBG(void)
 		390.0f,
 		660.0f);
 
-	if (s_nBgnCount.pos.x >= MAXPOS)
+	if (s_fHpLine < 0)
 	{
-		s_fLength = MAXPOS;
+		s_fLength = MINPOS;
 		s_fHpLine = (float)Status->nStatus;
 	
 		SetNormalpos2d(pVtx,
 			350.0f,
-			MAXPOS,
+			MINPOS,
 			390.0f,
 			660.0f);
 	}
@@ -434,12 +448,26 @@ void DrawBG(void)
 		2);
 }
 
+
+
 float GetBg(void)
 {
 	return s_fHpLine;
 }
 
+
+
+
 void GetIcon(PLAYER number)
 {
 	s_nBgnCount.nType = number;
+}
+
+
+
+void SetLife(int nowLife)
+{
+
+	s_nNowLife = nowLife;
+
 }

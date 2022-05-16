@@ -46,7 +46,6 @@ void UninitBG(void);
 void UpdateBG(void);
 void DrawBG(void);
 float GetBg(void);
-int *GetCollar(void);
 void GetIcon(PLAYER number);
-
+void SetLife(int nowLife);
 #endif // !_BG_H_

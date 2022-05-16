@@ -37,9 +37,6 @@
 #define ZERO_QUATERNION	(D3DXQUATERNION(0.0f,0.0f,0.0f,1.0f))
 
 
-//めんどくさいからここでかえて
-
-
 
 //頂点情報「２ｄ」の構造体を定義
 typedef struct

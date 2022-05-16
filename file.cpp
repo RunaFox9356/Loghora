@@ -51,7 +51,7 @@ pplx::task<void> GetTest(const wchar_t* cUrl)
 			DataSet.nStatus = j["max_hitpoint"];
 			DataSet.main_job = StringToWString(UTF8toSjis(j["main_job"]));
 			DataSet.race = StringToWString(UTF8toSjis(j["race"]));
-			DataSet.unionsname = StringToWString(UTF8toSjis(j["unions"]["name"]));
+			DataSet.unionsname = StringToWString(UTF8toSjis(j["unions"][{"name"}]));
 		}
 		else
 		{

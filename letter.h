@@ -34,4 +34,5 @@ std::string WStringToString(std::wstring oWString);
 std::wstring StringToWString(std::string oString);
 std::string UTF8toSjis(std::string srcUTF8);
 std::string SjistoUTF8(std::string srcSjis);
+
 #endif

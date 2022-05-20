@@ -8,9 +8,9 @@
 
 #include "letter.h"
 
-/*
-    wstringをstringへ変換
-*/
+//============================
+// wstringをstringへ変換
+//============================
 std::string WStringToString(std::wstring oWString)
 {
 	// wstring → SJIS
@@ -34,10 +34,9 @@ std::string WStringToString(std::wstring oWString)
 	return(oRet);
 }
 
-
-/*
-stringをwstringへ変換する
-*/
+//============================
+//stringをwstringへ変換する
+//============================
 std::wstring StringToWString(std::string oString)
 {
 	// SJIS → wstring
@@ -60,7 +59,6 @@ std::wstring StringToWString(std::string oString)
 	// 変換結果を返す
 	return(oRet);
 }
-
 
 //============================
 // UTFをSJISにします

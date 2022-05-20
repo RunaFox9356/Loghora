@@ -7,8 +7,6 @@
 #ifndef _FILE_H_			// このマクロ定義がされてなかったら
 #define _FILE_H_			// 二重インクルード防止のマクロ定義
 
-
-
 //=====================================
 // インクルード
 //=====================================
@@ -29,7 +27,7 @@
 #include <sstream>
 
 //構造体
-typedef struct
+struct Set
 {
 	//
 	std::wstring main_job;
@@ -37,22 +35,15 @@ typedef struct
 	std::wstring unionsname;
 	std::wstring name;
 	int nStatus;
-}Set;
-
-
-using namespace web;
-using namespace web::http;
-using namespace web::http::client;
-using namespace concurrency::streams;
+};
 
 //=====================================
 // プロトタイプ宣言
 //=====================================
 // 制御関数
-pplx::task<void> GetTest(const wchar_t* cUrl);//読み込み
-std::string UTF8toSjis(std::string srcUTF8);//変換
+pplx::task<void> GetJson(const wchar_t* cUrl);//読み込み
 Set *GetStatus(void);//ゲット
-//void SetStatus(void);
+void OutputStatus();
+void LoodJson(const wchar_t* cUrl);
 
 #endif
-
